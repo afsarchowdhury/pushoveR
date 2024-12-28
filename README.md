@@ -11,7 +11,7 @@ API keys are needed to send push messages.
 
 ## Installation
 
-Install the development version from [GitHub](https://github.com/).
+Install the development version using {devtools}.
 
 ``` r
 # Install devtools if needed
