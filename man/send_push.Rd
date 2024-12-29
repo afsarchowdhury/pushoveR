@@ -23,13 +23,13 @@ send_push(
 )
 }
 \arguments{
-\item{token}{application API token (required) as string.}
+\item{token}{(required) application API token as string.}
 
-\item{user}{user key or group key (required) as string.}
+\item{user}{(required) user key or group key as string.}
 
-\item{title}{message title as string.}
+\item{title}{(required) message title as string.}
 
-\item{message}{message (required) as string.}
+\item{message}{(required) message as string.}
 
 \item{url}{URL to show with your message as string.}
 
@@ -49,16 +49,18 @@ send_push(
 
 \item{attachment_type}{MIME type of the \code{attachment_base64}. Usually, "image/jpeg".}
 
-\item{retry}{how often in seconds to retry.}
+\item{retry}{how often in seconds to retry (required if \code{priority} = 2).}
 
-\item{expire}{how many seconds to retry.}
+\item{expire}{how many seconds to retry (required if \code{priority} = 2).}
 }
 \description{
 Push a message through Pushover.
 }
 \examples{
+\dontrun{
 send_push(
-title = "Hello", message = "Hello from pushoveR.",
+title = "Test push", message = "Hello from pushoveR.",
 token = Sys.getenv("PO_R_KEY"), user = Sys.getenv("PO_U_KEY")
 )
+}
 }

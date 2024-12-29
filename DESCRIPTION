@@ -6,7 +6,7 @@ Authors@R: person("Afsar", "Chowdhury", email = "afsarchowdhury@proton.me",
                   role = c("aut", "cre"))
 Maintainer: Afsar Chowdhury <afsarchowdhury@proton.me>
 Description: An R API wrapper for Pushover.
-License: GPL-3
+License: GPL-3 + file LICENSE
 URL: https://github.com/afsarchowdhury/pushoveR
 BugReports: https://github.com/afsarchowdhury/pushoveR/issues
 Encoding: UTF-8

@@ -2,10 +2,10 @@
 #' Send push.
 #'
 #' Push a message through Pushover.
-#' @param token application API token (required) as string.
-#' @param user user key or group key (required) as string.
-#' @param title message title as string.
-#' @param message message (required) as string.
+#' @param token (required) application API token as string.
+#' @param user (required) user key or group key as string.
+#' @param title (required) message title as string.
+#' @param message (required) message as string.
 #' @param url URL to show with your message as string.
 #' @param url_title title for the `url` as string.
 #' @param device name of device as string.
@@ -15,13 +15,15 @@
 #' @param ttl number of seconds that the message will live, before being deleted automatically, as integer.
 #' @param attachment_base64 base64-encoded image attachment to send with the message.
 #' @param attachment_type MIME type of the `attachment_base64`. Usually, "image/jpeg".
-#' @param retry how often in seconds to retry.
-#' @param expire how many seconds to retry.
+#' @param retry how often in seconds to retry (required if `priority` = 2).
+#' @param expire how many seconds to retry (required if `priority` = 2).
 #' @examples
+#' \dontrun{
 #' send_push(
-#' title = "Hello", message = "Hello from pushoveR.",
+#' title = "Test push", message = "Hello from pushoveR.",
 #' token = Sys.getenv("PO_R_KEY"), user = Sys.getenv("PO_U_KEY")
 #' )
+#' }
 #' @export
 send_push <- function(
     token,

@@ -6,8 +6,11 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-{pushoveR} is an R API wrapper for [Pushover](https://pushover.net/).
-API keys are needed to send push messages.
+{pushoveR} is an `R` API wrapper for [Pushover](https://pushover.net/)
+notifications. Note: API keys are needed to send push messages.
+
+I made this a while back for my workflow in a school-setting. As a
+result, some features are missing as I had no need for them.
 
 ## Installation
 
@@ -15,9 +18,9 @@ Install the development version using {devtools}.
 
 ``` r
 # Install devtools if needed
-#install.packages("devtools")
+install.packages("devtools")
 
-# Install g4sr using devtools
+# Install pushoveR using devtools
 devtools::install_github("afsarchowdhury/pushoveR")
 ```
 
@@ -42,44 +45,76 @@ Step 2: store your application key in `.Renviron` as, for example,
 Sys.setenv("PO_R_KEY" = "thisISyourAPPLICATIONkeyITlooksLIKEaLONGstringOFlettersANDnumbers")
 ```
 
-Step 3: restart your `R` session and test to make sure the keys have
-been added using the command
+Step 3: restart your `R` session and check to make sure the keys have
+been added using the commands
 
 ``` r
 Sys.getenv("PO_U_KEY")
+Sys.getenv("PO_R_KEY")
 ```
 
-You should see your user key printed in the console.
+You should see your keys printed in the console.
 
-Be aware: if you are using version control, you do not want to commit
-the `.Renviron` file in your local directory. Either edit your global
+Beware: if you are using version control, you do not want to commit the
+`.Renviron` file in your local directory. Either edit your global
 `.Renviron` file, or make sure that `.Renviron` is added to your
 `.gitignore` file.
 
 ## Sending push messages
 
-A normal push message:
+### Normal push message
 
 ``` r
 pushoveR::send_push(
   token = Sys.getenv("PO_R_KEY"),
   user = Sys.getenv("PO_U_KEY"),
-  title = "Hello",
-  message = "This is a test message from pushoveR."
+  title = "Normal",
+  message = "This is a normal test message from pushoveR."
 )
 ```
 
-An emergency push message:
+### Emergency push message
+
+Emergency push messages are where `priority = 2`. These messages require
+`retry` and `expire` parameters.
 
 ``` r
 pushoveR::send_push(
   token = Sys.getenv("PO_R_KEY"),
   user = Sys.getenv("PO_U_KEY"),
-  title = "Hello",
-  message = "This is a test message from pushoveR.",
+  title = "Emergency",
+  message = "This is an urgent test message from pushoveR.",
   priority = 2, # priority 2 is emergency priority
   retry = 30, # retry every 30 seconds
   expire = 300 # keep retrying for 300 seconds
+)
+```
+
+### Self-expiring push message
+
+Self-expiring push messages have a non-zero, integer `ttl` value for the
+number of seconds the message should be kept alive before being deleted.
+
+``` r
+pushoveR::send_push(
+  token = Sys.getenv("PO_R_KEY"),
+  user = Sys.getenv("PO_U_KEY"),
+  title = "Expire",
+  message = "This is an expiring test message from pushoveR.",
+  ttl = 300 # number of seconds to live
+)
+```
+
+### Base64 image push message
+
+``` r
+pushoveR::send_push(
+  token = Sys.getenv("PO_R_KEY"),
+  user = Sys.getenv("PO_U_KEY"),
+  title = "Image",
+  message = "This is a base64 image test message from pushoveR.",
+  attachment_base64 = substr(df$Image, 24, nchar(df$Image)),
+  attachment_type = "image/jpeg"
 )
 ```
 
